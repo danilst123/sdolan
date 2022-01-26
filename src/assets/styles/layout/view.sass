@@ -1,0 +1,29 @@
+.view
+  width: 100vw
+  height: 100vh
+  display: flex
+  flex-direction: column
+  overflow: auto
+  transition: color $td, background $td
+  &--scroll-block
+    @media screen and (max-width: $md-max)
+      overflow: hidden
+  &--IOS
+    /*** iPhone and iOS Form Input Zoom Fixes ***/
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="search"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"]
+      &:focus
+        font-size: 16px !important

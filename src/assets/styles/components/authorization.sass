@@ -1,0 +1,312 @@
+.authorization
+  &-page
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    position: relative
+    &__bg
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      display: flex
+      align-items: center
+      justify-content: center
+      z-index: 0
+      svg
+        height: 100%
+        width: 100%
+        object-fit: cover
+    &__content
+      width: 100%
+      height: 100%
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      z-index: 1
+
+  &-win
+    display: flex
+    border-radius: 15px
+    transition: background $td, box-shadow $td
+    @include auth-win-bg-theme
+    overflow-y: auto
+    overflow-x: hidden
+    flex-direction: row
+    /** ADAPTIVE **/
+    /** 1368px+ **/
+    @media screen and (min-width: $lg-min)
+      width: 1186px
+      height: 720px
+      max-width: calc(100vw - 100px)
+      max-height: calc(100vh - 100px)
+    /** 1025px - 1279px **/
+    @media screen and (min-width: $md-min) and (max-width: $md-max)
+      width: 960px
+      height: 600px
+      max-width: calc(100vw - 100px)
+      max-height: calc(100vh - 100px)
+    /** 1024px- **/
+    @media screen and (max-width: $sm-max)
+      width: 540px
+      height: auto
+      max-width: calc(100vw - 40px)
+      max-height: calc(100vh - 100px)
+      flex-direction: column
+    /** 550px- **/
+    @media screen and (max-width: $xxs-max)
+      width: 280px
+      height: auto
+
+  &-showcase
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    align-items: center
+    position: relative
+    overflow: hidden
+    @include auth-form-bg-theme
+    flex-shrink: 0
+    /** ADAPTIVE **/
+    /** 1368px+ **/
+    @media screen and (min-width: $lg-min)
+      width: 526px
+    /** 1025px - 1279px **/
+    @media screen and (min-width: $md-min) and (max-width: $md-max)
+      width: 434px
+    /** 1024px- **/
+    @media screen and (max-width: $sm-max)
+      width: 100%
+      height: 385px
+    /** 550px- **/
+    @media screen and (max-width: $xxs-max)
+      height: 180px
+      justify-content: center
+    .logo
+      position: absolute
+      z-index: 1
+      left: 50%
+      transform: translateX(-50%)
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        top: 80px
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        top: 60px
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        top: 30px
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        position: static
+        transform: translateX(0)
+    .authorization-illustration
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        transform: scale(1)
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        transform: scale(0.825)
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        transform: scale(0.7) translateY(40px) translateX(-20px)
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        display: none
+
+  &-form
+    flex-grow: 1
+    position: relative
+    display: flex
+    flex-direction: column
+    /** ADAPTIVE **/
+    /** 1368px+ **/
+    @media screen and (min-width: $lg-min)
+      padding: 150px 120px 40px
+    /** 1025px - 1279px **/
+    @media screen and (min-width: $md-min) and (max-width: $md-max)
+      padding: 120px 60px 40px
+    /** 1024px- **/
+    @media screen and (max-width: $sm-max)
+      padding: 70px 90px 80px
+    /** 550px- **/
+    @media screen and (max-width: $xxs-max)
+      padding: 50px 30px 35px
+    &__toggle
+      position: absolute
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        top: 40px
+        right: 40px
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        top: 40px
+        right: 32px
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        top: 28px
+        right: 35px
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        top: 12px
+        right: 14px
+    &__title
+      @include title
+      font-weight: 700
+      margin-right: -50px
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        font-size: 46px
+        line-height: 50px
+        margin: 0 0 40px
+        margin-right: -50px
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        font-size: 38px
+        line-height: 50px
+        margin: 0 0 30px
+        margin-right: -50px
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        font-size: 30px
+        line-height: 50px
+        margin: 0 0 20px
+        margin-right: -50px
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        font-size: 18px
+        line-height: 24px
+    &__subtitle
+      @include title
+      /** THEMES **/
+      // viol
+      [data-theme="viol"] &
+        color: $text-grey-dark
+    &__info
+      @include text-card
+      margin: -8px 0 20px
+      &:empty
+        display: none
+      /** THEMES **/
+      // viol
+      [data-theme="viol"] &
+        color: $text-bg-grey
+    &__fields
+      // transition: height $td
+      // @media screen and (min-width: $lg-min)
+      //   height: 62px
+      // @media screen and (min-width: $sm-min) and (max-width: $md-max)
+      //   height: 52px
+      // @media screen and (max-width: sms-max)
+      //   height: 42px
+      // [data-form="sign-in"] &
+      //   @media screen and (min-width: $lg-min)
+      //     height: 144px
+      //   @media screen and (min-width: $sm-min) and (max-width: $md-max)
+      //     height: 124px
+      //   @media screen and (max-width: sms-max)
+      //     height: 104px
+    &__actions
+      display: flex
+      align-items: center
+      justify-content: space-between
+      flex-wrap: wrap
+      margin: -10px
+      margin-top: 30px
+      /** ADAPTIVE **/
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        margin-top: 32px
+      .button
+        margin: 10px
+        /** ADAPTIVE **/
+        /** 1368px+ **/
+        @media screen and (min-width: $lg-min)
+          min-width: 190px
+        /** 1025px - 1279px **/
+        @media screen and (min-width: $md-min) and (max-width: $md-max)
+          min-width: 180px
+        /** 1024px- **/
+        @media screen and (max-width: $sm-max)
+          min-width: 155px
+        /** 550px- **/
+        @media screen and (max-width: $xxs-max)
+          min-width: auto
+      .text-btn
+        margin: 10px
+    &__bottom
+      flex-grow: 1
+      display: flex
+      flex-direction: column-reverse
+
+  &-illustration
+    position: relative
+    overflow: hidden
+    flex-shrink: 0
+    transform-origin: bottom center
+    height: 500px
+    width: 526px
+    &__item
+      position: absolute
+      & > div
+        height: 100%
+        width: 100%
+        .svg
+          position: absolute
+          &[data-svg="cat-woman"]
+            width: 398px
+            height: 256px
+            bottom: 70px
+            right: 33px
+          &[data-svg="arm-chair"]
+            width: 173px
+            height: 163px
+            left: 42px
+            top: 100px
+          &[data-svg="lamp-plant"]
+            height: 388px
+            width: 133px
+            top: 0
+            right: 28px
+          &[data-svg="woman-1"]
+            left: 0
+            bottom: -5px
+          &[data-svg="woman-2"]
+            left: 0
+            bottom: -5px
+          &[data-svg="play-site"]
+            left: 0
+            top: 30px
+          &[data-svg="sites"]
+            bottom: 0
+            right: 0
+          svg
+            height: 100%
+            width: auto
+    &__top
+      top: 0
+      left: 50%
+      transform: translate(-50%, 0)
+    &__left
+      left: 0
+      top: 0
+      height: 100%
+      width: 50%
+    &__right
+      right: 0
+      top: 0
+      height: 100%
+      width: 50%
+    &__bottom
+      bottom: 0
+      left: 0
+      width: 100%
+      height: 100%

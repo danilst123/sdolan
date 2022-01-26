@@ -1,0 +1,40 @@
+/** COLORS **/
+// VIOL
+$viol_bg-viol: #7D6BF2
+$viol_bg-viol-dark: #4D3BC2
+$viol_bg-lila: #C861F9
+$viol_bg-lila-dark: #8C56DB
+$viol_text-black: #43375D
+$viol_text-grey-dark: #63728C
+$viol_text-bg-grey: #929BAA
+$viol_text-grey-light: #CFD3DE
+$viol_line-grey: #E8EAEF
+$viol_bg-grey: #F7F8FA
+$viol_bg-viol-light: #F0EEFF
+$viol_white: #FFFFFF
+$viol_alert-red: #F1472E
+
+/** MIXINS **/
+//  shadows
+@mixin shadow-card
+  [data-theme='viol'] &
+    &[data-dark='false'] &
+      box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.04)
+
+@mixin shadow-menu
+  [data-theme='viol'] &
+    &[data-dark='false'] &
+      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.16)
+
+@mixin shadow-head
+  [data-theme='viol'] &
+    &[data-dark='false'] &
+      box-shadow: 0px 1px 4px rgba(160, 181, 195, 0.2)
+
+@mixin auth-win-bg-theme
+  [data-theme='viol'][data-dark='false'] &
+    background: $viol_white
+
+@mixin auth-form-bg-theme
+  [data-theme='viol'][data-dark='false'] &
+    background: $viol_bg-viol-light

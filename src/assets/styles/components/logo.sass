@@ -1,0 +1,74 @@
+.logo
+  display: flex
+  align-items: center
+  &[data-direction="row"]
+    flex-direction: row
+  &[data-direction="column"]
+    flex-direction: column
+    text-align: center
+  &__icon
+    display: flex
+    svg
+      width: auto
+      [data-direction="row"] &
+        height: 58px
+      [data-direction="column"] &
+        @media screen and (min-width: $lg-min)
+          height: 90px
+        @media screen and (min-width: $md-min) and (max-width: $md-max)
+          height: 90px
+        @media screen and (max-width: $sm-max)
+          height: 50px
+  &__text
+    [data-direction="row"] &
+      margin-left: 16px
+    [data-direction="column"] &
+      margin-top: 15px
+  &__title
+    font-family: $secondary-font
+    @include title-color
+    font-weight: 700
+    line-height: 1
+    [data-direction="row"] &
+      @media screen and (min-width: $lg-min)
+        font-size: 24px
+      @media screen and (min-width: $sm-min) and (max-width: $md-max)
+        font-size: 22px
+      @media screen and (max-width: $xs-max)
+        font-size: 20px
+    [data-direction="column"] &
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        font-size: 34px
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        font-size: 34px
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        font-size: 24px
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        font-size: 20px
+    .authorization-win &
+      font-family: 'Museo Sans Cyrl', $secondary-font
+  &__subtitle
+    @include text-card
+    .authorization-win &
+      /** ADAPTIVE **/
+      /** 1368px+ **/
+      @media screen and (min-width: $lg-min)
+        font-size: 17px
+      /** 1025px - 1279px **/
+      @media screen and (min-width: $md-min) and (max-width: $md-max)
+        font-size: 17px
+      /** 1024px- **/
+      @media screen and (max-width: $sm-max)
+        font-size: 14px
+      /** 550px- **/
+      @media screen and (max-width: $xxs-max)
+        font-size: 12px
+      /** THEMES **/
+      // viol
+      [data-theme="viol"] &
+        color: $text-bg-grey

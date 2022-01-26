@@ -1,0 +1,13 @@
+.field-helper
+  font-family: $secondary-font
+  line-height: 24px
+  @include text-color
+  padding: 0 22px
+  .Mui-error &
+    color: $alert-red
+  @media screen and (min-width: $lg-min)
+    font-size: 14px
+  @media screen and (min-width: $sm-min) and (max-width: $md-max)
+    font-size: 12px
+  @media screen and (max-width: $xs-max)
+    font-size: 10px

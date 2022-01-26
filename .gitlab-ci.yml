@@ -1,0 +1,140 @@
+default:
+  before_script:
+    - COMMIT_TIME="$(git show -s --pretty=%ct $CI_COMMIT_SHA)"
+    - COMMIT_HUMAN_TIME="$(date -d @$COMMIT_TIME +%Y%m%d-%H%M%S)"
+    - if [ -z "$CI_COMMIT_TAG" ]; then export ARTIFACT_TAG="${CI_COMMIT_SHA}"; else export ARTIFACT_TAG="${CI_COMMIT_TAG}"; fi
+
+stages:
+  - build
+  - release
+  - deploy
+
+.build:
+  stage: build
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_TAG"
+    expire_in: 3 mos
+    paths:
+      - "$CI_PROJECT_DIR/build/"
+  script:
+    - if [ -z "$CI_COMMIT_TAG" ]; then export ARTIFACT_TAG="${COMMIT_HUMAN_TIME}-${CI_COMMIT_REF_NAME}"; else export ARTIFACT_TAG="${CI_COMMIT_TAG}"; fi    # для билда даем человекочитаемое имя
+    - env
+    - notify --template_id "TEMP_BUILD_ARTIFACT_STARTED" --config $TELEGRAM_CONFIG
+    - npm install
+    - npm run build
+    - notify --template_id "TEMP_BUILD_ARTIFACT_SUCCESS" --config $TELEGRAM_CONFIG
+  tags:
+    - build
+
+build_dev:
+  extends: .build
+  environment: dev
+  rules:
+  - if: $CI_COMMIT_REF_NAME == "dev"  # билд для ветки development
+  
+build_uat:
+  extends: .build
+  environment: uat
+  rules:
+  - if: '$CI_COMMIT_TAG =~ /^UAT-/'           # билд для тегов UAT-*
+
+build_feature:
+  extends: .build
+  environment: feature
+  rules:
+  - if: '$CI_COMMIT_REF_NAME =~ /^UCFK-/'           # билд для тегов UCFK-*
+
+build_stage:
+  extends: .build
+  environment: stage
+  rules:
+  - if: $CI_COMMIT_REF_NAME == "stage"  # билд для ветки development
+
+build_prod:
+  extends: .build
+  environment: prod
+  rules:
+  - if: '$CI_COMMIT_TAG =~ /^RELEASE-/'       # билд тегов RELEASE-*
+
+
+
+.deploy:
+  stage: deploy
+  dependencies: []
+  script:
+    - env
+    - curl -g --request POST --form "token=831fd80c1a5cbaf8b2ecf692596a37" --form ref=$branch --form "variables[USER]=$GITLAB_USER_LOGIN" --form "variables[ENV]=$ENV" --form "variables[TAG_APPS]=$MODULE_TAG" --form "variables[APP_VERSION]=$ARTIFACT_TAG" --form "variables[COMMIT_HUMAN_TIME]=$COMMIT_HUMAN_TIME" https://gitlab.dks.lanit.ru/api/v4/projects/1136/trigger/pipeline
+
+  tags: [shell,deploy]
+
+deploy to dev:
+  extends: .deploy
+  variables:
+    ENV: dev
+    branch: $ANSIBLE_BRANCH_DEV
+  rules:
+    - if: $CI_COMMIT_TAG                        # пропускаем теги
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"  # автоматически деплоим коммиты с ветки dev
+  
+deploy to uat:
+  extends: .deploy
+  variables:
+    ENV: uat
+    branch: $ANSIBLE_BRANCH_UAT
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+      when: never
+    - if: '$CI_COMMIT_TAG =~ /^UAT-/'           # автоматический деплой тегов UAT и ветки UAT
+
+deploy to feature:
+  extends: .deploy
+  variables:
+    ENV: feature
+    branch: $ANSIBLE_BRANCH_FEATURE
+  rules:
+    - if: $CI_COMMIT_TAG                        # пропускаем теги
+      when: never
+    - if: '$CI_COMMIT_REF_NAME =~ /^UCFK-/'  # ручной деплой с ветки UCFK-*
+      when: manual
+  
+deploy to stage:
+  extends: .deploy
+  variables:
+    ENV: stage
+    branch: $ANSIBLE_BRANCH_DEV
+  rules:
+    - if: $CI_COMMIT_TAG                        # пропускаем теги
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "stage"  # автоматически деплоим коммиты с ветки dev
+  
+deploy to prod:
+  extends: .deploy
+  variables:
+    ENV: prod
+    branch: $ANSIBLE_BRANCH_PROD
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+      when: never
+    - if: '$CI_COMMIT_TAG =~ /^RELEASE-/ && $CI_COMMIT_REF_NAME == "master"'                        # ручной деплой тегов
+      when: manual
+
+release_job:
+  stage: release
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^RELEASE-/ && $CI_COMMIT_REF_NAME == "master"'
+  script:
+    - echo 'running release_job'
+  release:
+    name: 'Release $CI_COMMIT_TAG'
+    description: 'Created using the release-cli'  # $EXTRA_DESCRIPTION must be defined
+    tag_name: '$CI_COMMIT_TAG'                                       # elsewhere in the pipeline.
+    ref: '$CI_COMMIT_TAG'
+
+pipeline_failure:
+  stage: .post
+  dependencies: []
+  script:
+    - notify --template_id "TEMP_PIPELINE_FAILED" --config $TELEGRAM_CONFIG
+  when: on_failure
+  tags: [shell]

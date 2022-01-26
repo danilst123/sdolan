@@ -1,0 +1,19 @@
+.text-btn
+  display: inline-flex
+  align-items: center
+  @include link
+  /** ADAPTIVE **/
+  /** 1368px+ **/
+  @media screen and (min-width: $lg-min)
+  /** 1025px - 1279px **/
+  @media screen and (min-width: $md-min) and (max-width: $md-max)
+  /** 1024px- **/
+  @media screen and (max-width: $sm-max)
+  /** 550px- **/
+  @media screen and (max-width: $xxs-max)
+    font-size: 9px
+  /** THEMES **/
+  // Default
+  [data-theme="viol"] &
+    border-color: $text-black
+    color: $text-black

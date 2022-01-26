@@ -1,0 +1,62 @@
+.textfield
+  &.MuiTextField-root
+    display: flex
+    @include text-card
+    label.MuiInputLabel-root
+      @include field-label
+    .MuiInputBase-root
+      @include text-inherit
+      border-radius: 12px
+      input.MuiInputBase-input
+        @include field-input
+      fieldset.MuiOutlinedInput-notchedOutline
+        top: -12px
+        padding: 0 15px
+        @include field-root
+        legend
+          @include field-legend
+          span
+            padding: 0 6px
+    .MuiFormHelperText-root
+      @include text-inherit
+      margin: 0
+      .code-recieve-counter
+        margin-top: 32px
+
+    &[data-empty="true"],
+    &[data-empty="false"]
+      /** THEMES **/
+      // viol
+      [data-theme="viol"] &
+        .MuiInputBase-root
+          &:hover,
+          &.Mui-focused
+            background: $white
+            fieldset.MuiOutlinedInput-notchedOutline
+              border-color: $bg-viol
+          &.Mui-error
+            background: $white
+            fieldset.MuiOutlinedInput-notchedOutline
+              border-color: $alert-red
+
+    &[data-empty="false"]
+      .MuiInputBase-root
+        /** THEMES **/
+        // viol
+        [data-theme="viol"] &
+          fieldset.MuiOutlinedInput-notchedOutline
+            border-color: $text-grey-light
+
+    &[data-empty="true"]
+      .MuiInputBase-root
+        background: $bg-grey
+        /** THEMES **/
+        // viol
+        [data-theme="viol"] &
+          fieldset.MuiOutlinedInput-notchedOutline
+            border-color: $bg-grey
+
+    &[data-empty="false"] label.MuiInputLabel-root,
+    label.MuiInputLabel-root.Mui-focused
+      transform: translate(22px, -12px) scale(1)
+      @include field-legend

@@ -1,0 +1,48 @@
+.button
+  // все кнопки
+  &.MuiButton-root
+    width: auto
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    text-transform: none
+    transition: color $td, background $td, width $td, height $td, opacity $td
+
+  // кнопки contained
+  &.MuiButton-contained
+    @include btn-text
+    border-radius: 12px
+
+  // Большие кнопки    
+  &.MuiButton-sizeBig
+    @include btn-size-big
+    @include btn-text-desctop
+    @media screen and (min-width: $lg-min)
+    @media screen and (min-width: $sm-min) and (max-width: $md-max)
+      @include btn-size-medium
+      @include btn-text-mini
+    @media screen and (max-width: $xs-max)
+      @include btn-size-small
+      @include btn-text-mob
+
+  // Средние / стандартные кнопки
+  &.MuiButton-sizeMedium
+    @include btn-size-medium
+    @include btn-text-mini
+    @media screen and (min-width: $lg-min)
+    @media screen and (max-width: $md-max)
+      @include btn-size-small
+      @include btn-text-mob
+
+  // Маленькие кнопки
+  &.MuiButton-sizeSmall
+    @include btn-size-small
+    @include btn-text-mob
+
+  // кнопки primary
+  &.MuiButton-containedPrimary
+    @include btn-contained-primary
+
+  // кнопки secondary
+  &.MuiButton-containedSecondary
+    @include btn-contained-secondary

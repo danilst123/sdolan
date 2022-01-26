@@ -1,0 +1,68 @@
+
+.fade
+  &-enter
+    opacity: 0
+    &-active,
+    &-done
+      opacity: 1
+      transition: opacity $td ease-in
+  &-exit
+    opacity: 1
+    &-active,
+    &-done
+      opacity: 0
+      transition: opacity $td ease-in
+
+.slide-right
+  &-enter
+    opacity: 0
+    transform: translateX(100px)
+    &-active,
+    &-done
+      opacity: 1
+      transform: translateX(0)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
+  &-exit
+    opacity: 1
+    transform: translateX(0)
+    &-active,
+    &-done
+      opacity: 0
+      transform: translateX(100px)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
+
+.slide-left
+  &-enter
+    opacity: 0
+    transform: translateX(-100px)
+    &-active,
+    &-done
+      opacity: 1
+      transform: translateX(0)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
+  &-exit
+    opacity: 1
+    transform: translateX(0)
+    &-active,
+    &-done
+      opacity: 0
+      transform: translateX(-100px)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
+
+.slide-bottom
+  &-enter
+    opacity: 0
+    transform: translateX(100px)
+    &-active,
+    &-done
+      opacity: 1
+      transform: translateX(0)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
+  &-exit
+    opacity: 1
+    transform: translateX(0)
+    &-active,
+    &-done
+      opacity: 0
+      transform: translateX(-100px)
+      transition: opacity 0.2s ease-in, transform 0.2s ease-in
